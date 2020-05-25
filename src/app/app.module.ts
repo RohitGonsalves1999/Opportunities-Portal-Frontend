@@ -7,15 +7,30 @@ import { socialConfigs } from '../app/utils/socialConfigs';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/components/login/login.component';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatAutocompleteModule, MatButtonModule, MatCheckboxModule, MatDatepickerModule, 
+  MatFormFieldModule, MatInputModule, MatRadioModule, MatSelectModule, MatSliderModule, 
+  MatSlideToggleModule } from '@angular/material';
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    BrowserAnimationsModule,
+    MatAutocompleteModule,
+     MatButtonModule,
+     MatCheckboxModule,
+     MatDatepickerModule,
+     MatFormFieldModule,
+     MatInputModule,
+     MatRadioModule,
+     MatSelectModule,
+     MatSliderModule,
+     MatSlideToggleModule
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [
     AuthService,
