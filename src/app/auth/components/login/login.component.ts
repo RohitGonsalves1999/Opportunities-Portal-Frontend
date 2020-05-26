@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
     this.OAuth.signIn(socialPlatformProvider).then(socialusers => {
       console.log(socialProvider, socialusers);
       console.log(socialusers);
+      this.router.navigate(['home']);
       // this.Savesresponse(socialusers);
     });
   }
