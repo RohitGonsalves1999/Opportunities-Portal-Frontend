@@ -1,1 +1,64 @@
-<p>add-opportunity works!</p>
+<mat-form-field>
+    <mat-label>Profile</mat-label>
+    <mat-select>
+      <mat-option *ngFor="let food of proflie" [value]="food.name">
+        {{food.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+<mat-form-field>
+    <mat-label>Employment Type</mat-label>
+    <mat-select>
+      <mat-option *ngFor="let food of employmentType" [value]="food.name">
+        {{food.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
+<mat-form-field>
+    <mat-label>Location</mat-label>
+    <mat-select>
+      <mat-option *ngFor="let food of location" [value]="food.name">
+        {{food.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
+<mat-form-field>
+    <mat-label>Hiring Manager</mat-label>
+    <mat-select>
+      <mat-option *ngFor="let food of hiringManager" [value]="food.name">
+        {{food.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field> 
+
+
+  <mat-form-field class="example-chip-list">
+    <mat-chip-list #chipList aria-label="Fruit selection">
+      <mat-chip
+        *ngFor="let fruit of fruits"
+        [selectable]="selectable"
+        [removable]="removable"
+        (removed)="remove(fruit)">
+        {{fruit}}
+        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+      </mat-chip>
+      <input
+        placeholder="New fruit..."
+        #fruitInput
+        [formControl]="fruitCtrl"
+        [matAutocomplete]="auto"
+        [matChipInputFor]="chipList"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        (matChipInputTokenEnd)="add($event)">
+    </mat-chip-list>
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+      <mat-option *ngFor="let fruit of filteredFruits | async" [value]="fruit">
+        {{fruit}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>

@@ -1,8 +1,13 @@
-<div>
-    <button (click)="socialSignIn('google')" class="loginBtn loginBtn--google">  
-        <div style="width: 10px;">
-            <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon> 
-            
-            Sign with Google </div>
-    </button>
+<div class="center">
+    <div class="buttonContainer">
+        <div class="headerText">Opportunity Management</div>
+
+        <div class = "buttonParent">
+            <button mat-raised-button color="warn" (click)="socialSignIn('google')" class="loginBtn">
+                <img src="../../../../assets/Images/googleLogo.png" alt="" width="10%">
+                <div class="buttonContent">
+                    Sign in with Google</div>
+            </button>
+        </div>
+    </div>
 </div>
