@@ -15,17 +15,33 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatChipsModule} from '@angular/material/chips'; 
+import {MatChipsModule} from '@angular/material/chips';
+import {MatCardModule} from '@angular/material/card';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 import { AddOpportunityComponent } from './opportunity/components/add-opportunity/add-opportunity.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ViewOpportunityComponent } from './opportunity/components/viewopportunities/view-opportunity/view-opportunity.component';
+import { EditOpportunityComponent } from './opportunity/components/edit-opportunity/edit-opportunity/edit-opportunity.component';
+import { ViewTrendsComponent } from './opportunity/components/view-trends/view-trends/view-trends.component';
+import { SideNavBarComponent } from './side-nav/components/side-nav/side-nav-bar/side-nav-bar.component';
+import { ErrorHandlingComponent } from './error/components/error-handling/error-handling.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     AddOpportunityComponent,
+    ViewOpportunityComponent,
+    EditOpportunityComponent,
+    ViewTrendsComponent,
+    SideNavBarComponent,
+    ErrorHandlingComponent,
 
 
   ],
@@ -42,6 +58,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatSelectModule,
     MatFormFieldModule,
     MatChipsModule,
+    MatCardModule,
+    MatDialogModule,
+    MatSnackBarModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    ScrollingModule,
     FontAwesomeModule,
     FormsModule,
     ReactiveFormsModule

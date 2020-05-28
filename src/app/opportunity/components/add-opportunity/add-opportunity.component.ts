@@ -9,6 +9,8 @@ import { Observable } from 'rxjs';
 import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import {map, startWith} from 'rxjs/operators';
+import { JobDescription } from 'src/app/models/JobDescription';
+import { JobDescriptionWithSkills } from 'src/app/models/JobDescriptionWithSkills';
 
 @Component({
   selector: 'app-add-opportunity',
@@ -36,7 +38,17 @@ export class AddOpportunityComponent implements OnInit {
   hiringManager: DropDownItem[];
   employmentType: DropDownItem[];
   skillSet: DropDownItem[] = [];
+  skillMap: Map<string, number> = new Map();
+
   name = new FormControl('');
+
+  selectedProfile: any;
+  selectedHiringManager: any;
+  selectedLocation: any;
+  selectedEmploymentType: any;
+  selectedSkills: number[] = [];
+  jobDescription = '';
+  openings = 0;
 
   constructor(
     private API: APIService,
@@ -48,17 +60,17 @@ export class AddOpportunityComponent implements OnInit {
      }
 
   jobDescriptionForm = this.formBuilder.group({
-    profile: [''],
-    employmentType: [''],
-    openings: [''],
-    location: [''],
-    hiringManager: [''],
-    skills: [[]],
-    description: [''],
+    profile: new FormControl(this.selectedProfile),
+    employmentType: new FormControl(this.selectedEmploymentType),
+    openings: new FormControl(this.openings),
+    location: new FormControl(this.selectedLocation),
+    hiringManager: new FormControl(this.selectedHiringManager),
+    skills: new FormControl([]),
+    description: new FormControl(this.jobDescription),
 
   });
-  
-  
+
+
 
   add(event: MatChipInputEvent): void {
     const input = event.input;
@@ -80,21 +92,52 @@ export class AddOpportunityComponent implements OnInit {
   remove(fruit: string): void {
     const index = this.fruits.indexOf(fruit);
 
+    const idIndex = this.selectedSkills.indexOf(this.skillMap.get(fruit));
+
     if (index >= 0) {
       this.fruits.splice(index, 1);
     }
+
+    if (idIndex >= 0) {
+      this.selectedSkills.splice(idIndex, 1);
+    }
+
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
     this.fruits.push(event.option.viewValue);
     this.fruitInput.nativeElement.value = '';
     this.fruitCtrl.setValue(null);
+
+    this.selectedSkills.push(this.skillMap.get(event.option.viewValue));
   }
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
 
     return this.skillSet.map(x => x.name).filter(fruit => fruit.toLowerCase().indexOf(filterValue) === 0);
+  }
+
+
+  onSubmit(){
+    let job = new JobDescription();
+    job.description = this.jobDescription;
+    job.employmentType = this.selectedEmploymentType;
+    job.hiringManager = this.selectedHiringManager;
+    job.location = this.selectedLocation;
+    job.openings = this.openings;
+    job.profile = this.selectedProfile;
+    job.postedBy = 1;
+    let jobSkill = new JobDescriptionWithSkills();
+    jobSkill.jobDescription = job;
+    jobSkill.skillList = this.selectedSkills;
+
+    this.API.callApiPost('/addJobDescription', jobSkill).subscribe((res:any) => {
+      console.log(res);
+      location.reload();
+      //this.router.navigate(['home']);
+    });
+    
   }
 
   ngOnInit(): void {
@@ -105,10 +148,12 @@ export class AddOpportunityComponent implements OnInit {
       this.hiringManager = response[HIRING_MANAGERS];
       this.employmentType = response[EMPLOYMENT_TYPE];
       this.skillSet = response[SKILLS];
+
+      this.skillSet.forEach(x => this.skillMap.set(x.name, x.id));
     }) ;
   }
 
-  
+
 
 
 }

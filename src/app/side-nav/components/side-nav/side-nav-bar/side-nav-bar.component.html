@@ -1,0 +1,20 @@
+
+<mat-drawer-container class="example-container" [hasBackdrop]="true">
+    
+    <mat-drawer #drawer [mode]="mode.value">
+
+        
+
+    </mat-drawer>
+    
+    <mat-drawer-content>
+        <mat-toolbar color="primary">
+            <mat-toolbar-row>
+                <button mat-icon-button color="white" (click) = "drawer.toggle()">
+                    <mat-icon>menu</mat-icon>
+                  </button>
+            </mat-toolbar-row>
+          </mat-toolbar>
+      
+    </mat-drawer-content>
+</mat-drawer-container>

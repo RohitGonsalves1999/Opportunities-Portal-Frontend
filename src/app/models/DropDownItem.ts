@@ -1,4 +1,4 @@
 export class DropDownItem {
-    id: BigInteger;
+    id: number;
     name: string;
 }

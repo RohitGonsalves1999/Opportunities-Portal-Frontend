@@ -1,0 +1,33 @@
+<div class="container">
+  <div *ngFor="let job of filteredJobsData" class='card-container'>
+    <div class='flippable-card' [ngClass]="{'flipped':(flipped === job.jobDescription.id)}">
+      <mat-card class="" (mouseover)='flipped = (flipped === job.jobDescription.id?undefined:job.jobDescription.id)'>
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>{{ profiles[job.jobDescription.profile] }}</mat-card-title>
+          <mat-card-subtitle>Employment Type: {{ employmentTypes[job.jobDescription.employmentType] }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <h4>Openings: {{ job.jobDescription.openings }}</h4>
+          <h4>Location: {{ locations[job.jobDescription.location] }}</h4>
+          <h4>Hiring Manager: {{ hiringManagers[job.jobDescription.hiringManager] }}</h4>
+          <h4>Skills: {{ getSkillsString(job) }}</h4>
+
+          <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
+            <p>
+              {{ job.jobDescription.description }}
+            </p>
+          </cdk-virtual-scroll-viewport>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class='back'>
+        <mat-card-title>Actions</mat-card-title>
+        <mat-card-content class="cardBackActions">
+          <div><button mat-raised-button color="primary">Edit</button></div>
+          <div><button mat-raised-button color = "warn"  (click) = "deleteJob(job.jobDescription.id)">Delete</button></div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+</div>
