@@ -1,4 +1,8 @@
 <div class="container">
+  <mat-form-field class="example-full-width">
+    <mat-label>Type In Anything</mat-label>
+    <input matInput placeholder="Filter" value="" [(ngModel)] = "filterString" (keyup) = "filterData()">
+  </mat-form-field>
   <div *ngFor="let job of filteredJobsData" class='card-container'>
     <div class='flippable-card' [ngClass]="{'flipped':(flipped === job.jobDescription.id)}">
       <mat-card class="" (mouseover)='flipped = (flipped === job.jobDescription.id?undefined:job.jobDescription.id)'>

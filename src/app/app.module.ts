@@ -21,6 +21,8 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatListModule} from '@angular/material/list';
+import { ChartsModule } from 'ng2-charts';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import { AddOpportunityComponent } from './opportunity/components/add-opportunity/add-opportunity.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -63,6 +65,8 @@ import { ErrorHandlingComponent } from './error/components/error-handling/error-
     MatSnackBarModule,
     MatSidenavModule,
     MatToolbarModule,
+    MatListModule,
+    ChartsModule,
     ScrollingModule,
     FontAwesomeModule,
     FormsModule,

@@ -2,9 +2,32 @@
 <mat-drawer-container class="example-container" [hasBackdrop]="true">
     
     <mat-drawer #drawer [mode]="mode.value">
-
-        
-
+        <mat-list>
+            <mat-list-item>
+              <button routerLink="/home" mat-flat-button>
+                <mat-icon color="primary">home</mat-icon>
+                Home
+              </button>
+            </mat-list-item>
+            <mat-list-item>
+              <button routerLink="/all" mat-flat-button>
+                <mat-icon color="primary">pageview</mat-icon>
+                View Job Posts
+              </button>
+            </mat-list-item>
+            <mat-list-item>
+              <button routerLink="/add" mat-flat-button>
+                <mat-icon color="primary">insert_chart</mat-icon>
+                Add Post
+              </button>
+            </mat-list-item>
+            <mat-list-item>
+              <button routerLink="/view" mat-flat-button>
+                <mat-icon color="primary">insert_chart</mat-icon>
+                Insights
+              </button>
+            </mat-list-item>    
+        </mat-list> 
     </mat-drawer>
     
     <mat-drawer-content>
@@ -15,6 +38,6 @@
                   </button>
             </mat-toolbar-row>
           </mat-toolbar>
-      
+          
     </mat-drawer-content>
 </mat-drawer-container>

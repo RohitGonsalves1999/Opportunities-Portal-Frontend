@@ -1,4 +1,45 @@
 
 
 
-<router-outlet></router-outlet>
+<mat-drawer-container class="example-container" [hasBackdrop]="true">
+    
+    <mat-drawer #drawer [mode]="mode.value">
+        <mat-list>
+            <mat-list-item>
+              <button routerLink="/all" mat-flat-button>
+                <mat-icon color="primary">home</mat-icon>
+                Home
+              </button>
+            </mat-list-item>
+            <mat-list-item>
+              <button routerLink="/all" mat-flat-button>
+                <mat-icon color="primary">pageview</mat-icon>
+                View Job Posts
+              </button>
+            </mat-list-item>
+            <mat-list-item>
+              <button routerLink="/home" mat-flat-button>
+                <mat-icon color="primary">insert_chart</mat-icon>
+                Add Post
+              </button>
+            </mat-list-item>
+            <mat-list-item>
+              <button routerLink="/insights" mat-flat-button>
+                <mat-icon color="primary">insert_chart</mat-icon>
+                Insights
+              </button>
+            </mat-list-item>    
+        </mat-list> 
+    </mat-drawer>
+    
+    <mat-drawer-content>
+        <mat-toolbar color="primary" class="stickyToolbar">
+            <mat-toolbar-row>
+                <button mat-icon-button color="white" (click) = "drawer.toggle()">
+                    <mat-icon>menu</mat-icon>
+                  </button>
+            </mat-toolbar-row>
+          </mat-toolbar>
+          <router-outlet></router-outlet>          
+    </mat-drawer-content>
+</mat-drawer-container>

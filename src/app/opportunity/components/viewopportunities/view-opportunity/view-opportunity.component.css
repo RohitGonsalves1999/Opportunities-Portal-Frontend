@@ -88,9 +88,10 @@
   .container{
       background-color: #dddddd;
       padding: 2%;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
+      padding-bottom: 9%;
+      
+      
+      height: 100%;
   }
 
   .cardBackActions{
@@ -100,4 +101,8 @@
       flex-direction: column    ;
       align-items: center;
       justify-content: space-evenly;
+  }
+
+  .example-full-width {
+    width: 100%;
   }

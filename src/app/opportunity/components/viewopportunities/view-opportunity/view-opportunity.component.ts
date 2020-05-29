@@ -38,6 +38,7 @@ export class ViewOpportunityComponent implements OnInit {
     profiles: Map<number, string>;
 
 
+    filterString = '';
     getSkillsString(job) {
     return job.skillList.map(x => this.skills[x]).join(', ');
   }
@@ -70,6 +71,32 @@ export class ViewOpportunityComponent implements OnInit {
     });
   }
 
+  getJobString(job: JobDescriptionWithSkills){
+    let location = this.locations[job.jobDescription.location];
+    let profile = this.profiles[job.jobDescription.profile];
+    let hiringManager =  this.hiringManagers[job.jobDescription.hiringManager]
+    let employmentType = this.employmentTypes[job.jobDescription.employmentType];
+    let skills = this.getSkillsString(job);
+    let jobDesc = job.jobDescription.description;
+    return location + profile + hiringManager + employmentType + skills + jobDesc;
+  }
+
+  testJob(job: JobDescriptionWithSkills) {
+
+    console.log(this.getJobString(job));
+
+    let regex = new RegExp(this.filterString.toLowerCase());
+    return regex.test(this.getJobString(job).toLowerCase());
+
+  }
+
+  filterData(){
+    this.flipped = undefined;
+    console.log("Filter: ", this.filterString);
+
+    this.filteredJobsData = this.jobsData.filter(x => this.testJob(x));
+  }
+
   ngOnInit(): void {
 
     this.API.callApi('/getDropDownMap').subscribe((response => {
@@ -79,6 +106,7 @@ export class ViewOpportunityComponent implements OnInit {
       this.hiringManagers = response[HIRING_MANAGERS];
       this.employmentTypes = response[EMPLOYMENT_TYPE];
       this.skills = response[SKILLS];
+      
 
       console.log(this.skills);
     }));
