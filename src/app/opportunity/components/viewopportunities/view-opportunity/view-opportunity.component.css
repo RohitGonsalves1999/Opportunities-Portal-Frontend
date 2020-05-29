@@ -86,7 +86,6 @@
 
 
   .container{
-      background-color: #dddddd;
       padding: 2%;
       padding-bottom: 9%;
       
@@ -105,4 +104,27 @@
 
   .example-full-width {
     width: 100%;
+  }
+
+
+  table {
+    width: 100%;
+  }
+  
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  
+  td, th {
+    width: auto;
+    max-width: 10%;
+  }
+
+
+  .searchFieldContainer{
+    align-self: center;
+    justify-self: center;
+    width: 30%;
+    display: flex;
   }

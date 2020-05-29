@@ -1,37 +1,70 @@
 <div class="container">
-  <mat-form-field class="example-full-width">
-    <mat-label>Type In Anything</mat-label>
-    <input matInput placeholder="Filter" value="" [(ngModel)] = "filterString" (keyup) = "filterData()">
-  </mat-form-field>
-  <div *ngFor="let job of filteredJobsData" class='card-container'>
-    <div class='flippable-card' [ngClass]="{'flipped':(flipped === job.jobDescription.id)}">
-      <mat-card class="" (mouseover)='flipped = (flipped === job.jobDescription.id?undefined:job.jobDescription.id)'>
-        <mat-card-header>
-          <div mat-card-avatar class="example-header-image"></div>
-          <mat-card-title>{{ profiles[job.jobDescription.profile] }}</mat-card-title>
-          <mat-card-subtitle>Employment Type: {{ employmentTypes[job.jobDescription.employmentType] }}</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-          <h4>Openings: {{ job.jobDescription.openings }}</h4>
-          <h4>Location: {{ locations[job.jobDescription.location] }}</h4>
-          <h4>Hiring Manager: {{ hiringManagers[job.jobDescription.hiringManager] }}</h4>
-          <h4>Skills: {{ getSkillsString(job) }}</h4>
+<div class="searchFieldContainer">
+<mat-form-field>
+  <mat-label>Filter</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Filter your Data">
+</mat-form-field>
 
-          <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
-            <p>
-              {{ job.jobDescription.description }}
-            </p>
-          </cdk-virtual-scroll-viewport>
-        </mat-card-content>
-      </mat-card>
-      <mat-card class='back'>
-        <mat-card-title>Actions</mat-card-title>
-        <mat-card-content class="cardBackActions">
-          <div><button mat-raised-button color="primary">Edit</button></div>
-          <div><button mat-raised-button color = "warn"  (click) = "deleteJob(job.jobDescription.id)">Delete</button></div>
-        </mat-card-content>
-      </mat-card>
-    </div>
-  </div>
+</div>
+
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort>
+
+    <!-- ID Column -->
+    <ng-container matColumnDef="profile">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Profile </th>
+      <td mat-cell *matCellDef="let row"> {{profiles[row.jobDescription.profile]}} </td>
+    </ng-container>
+
+    <!-- Progress Column -->
+    <ng-container matColumnDef="employmentType">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Employment Type </th>
+      <td mat-cell *matCellDef="let row"> {{employmentTypes[row.jobDescription.employmentType]}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="location">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Location </th>
+      <td mat-cell *matCellDef="let row"> {{locations[row.jobDescription.location]}} </td>
+    </ng-container>
+
+    <!-- Color Column -->
+    <ng-container matColumnDef="openings">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Openings </th>
+      <td mat-cell *matCellDef="let row"> {{row.jobDescription.openings }} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="hiringManager">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Hiring Managers </th>
+      <td mat-cell *matCellDef="let row"> {{ hiringManagers[row.jobDescription.hiringManager] }} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="skills">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Skills </th>
+      <td mat-cell *matCellDef="let row"> {{ getSkillsString(row) }} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="star" stickyEnd>
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item><mat-icon>edit</mat-icon>Edit</button>
+          <button mat-menu-item><mat-icon color="primary">check</mat-icon>Resolve</button>
+          <button mat-menu-item (click) = "deleteJob(element.jobDescription.id)"><mat-icon color="warn">delete</mat-icon>Delete</button>
+        </mat-menu>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+    </tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[25, 100]"></mat-paginator>
+</div>
 
 </div>

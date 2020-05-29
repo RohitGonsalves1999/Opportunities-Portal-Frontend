@@ -20,10 +20,13 @@ import {MatCardModule} from '@angular/material/card';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatListModule} from '@angular/material/list';
+import { MatTableModule } from '@angular/material/table'  
 import { ChartsModule } from 'ng2-charts';
 import {ScrollingModule} from '@angular/cdk/scrolling';
+import {MatMenuModule} from '@angular/material/menu';
 import { AddOpportunityComponent } from './opportunity/components/add-opportunity/add-opportunity.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -66,6 +69,9 @@ import { ErrorHandlingComponent } from './error/components/error-handling/error-
     MatSidenavModule,
     MatToolbarModule,
     MatListModule,
+    MatPaginatorModule,
+    MatTableModule,
+    MatMenuModule,
     ChartsModule,
     ScrollingModule,
     FontAwesomeModule,
