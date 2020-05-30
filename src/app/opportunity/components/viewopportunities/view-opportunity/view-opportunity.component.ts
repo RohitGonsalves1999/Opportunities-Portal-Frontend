@@ -36,7 +36,7 @@ export class ViewOpportunityComponent implements OnInit {
 
 
   toppings = new FormControl();
-  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
+  toppingList: string[] = ['Profile', 'Location', 'Employment Type', 'Hiring Manager', 'Skills', 'Job Description'];
   jobsData: JobDescriptionWithSkills[] = [];
   filteredJobsData: JobDescriptionWithSkills[] = [];
 
@@ -48,15 +48,15 @@ export class ViewOpportunityComponent implements OnInit {
 
   public dataSource: MatTableDataSource<JobDescriptionWithSkills>;
 
-  displayedColumns: string[] = ['profile', 'employmentType', 'location', 'openings', 'hiringManager', 'skills', 'star'];
+  displayedColumns: string[] = ['profile', 'employmentType', 'location', 'openings', 'hiringManager', 'skills', 'jobDescription' ,'star'];
   filterString = '';
   getSkillsString(job) {
     return job.skillList.map(x => this.skills[x]).join(', ');
   }
 
 
-  openSnackBar() {
-    this._snackBar.open('Deleted Successfully', 'Dismiss', {
+  openSnackBar(message = 'Success!!!') {
+    this._snackBar.open(message, 'Dismiss', {
       duration: 2000,
     });
   }
@@ -80,14 +80,54 @@ export class ViewOpportunityComponent implements OnInit {
     });
   }
 
+
+  async resolveJob(id) {
+    this.API.callApi(`/deleteJobDescription/${id}`).subscribe(res => {
+      this.flipped = undefined;
+      this.openSnackBar();
+      this.ngOnInit();
+    });
+  }
+
   getJobString(job: JobDescriptionWithSkills) {
+    let filterList = this.toppings.value?this.toppings.value:this.toppingList;
+
     let location = this.locations[job.jobDescription.location];
     let profile = this.profiles[job.jobDescription.profile];
     let hiringManager = this.hiringManagers[job.jobDescription.hiringManager]
     let employmentType = this.employmentTypes[job.jobDescription.employmentType];
     let skills = this.getSkillsString(job);
     let jobDesc = job.jobDescription.description;
-    return location + profile + hiringManager + employmentType + skills + jobDesc;
+    
+    let resultString = '';
+
+    if( filterList.includes('Location')){
+      resultString += location;
+    }
+
+    if(filterList.includes('Profile')){
+      resultString += profile;
+    }
+
+
+    if(filterList.includes('Employment Type')){
+      resultString += employmentType;
+    }
+
+    if(filterList.includes('Hiring Manager')){
+      resultString += hiringManager;
+    }
+
+    if(filterList.includes('Skills')){
+      resultString += skills;
+    }
+
+    if(filterList.includes('Job Description')){
+      resultString += jobDesc;
+    }
+
+    console.log(resultString);
+    return resultString;
   }
 
   testJob(job: JobDescriptionWithSkills) {
@@ -104,6 +144,15 @@ export class ViewOpportunityComponent implements OnInit {
     console.log("Filter: ", this.filterString);
 
     this.filteredJobsData = this.jobsData.filter(x => this.testJob(x));
+  }
+
+  openDialog(job: JobDescriptionWithSkills) {
+
+    this.dialog.open(DialogOverviewExampleDialog, {
+      data: {
+        animal: job.jobDescription.description
+      }
+    });
   }
 
   ngOnInit(): void {
