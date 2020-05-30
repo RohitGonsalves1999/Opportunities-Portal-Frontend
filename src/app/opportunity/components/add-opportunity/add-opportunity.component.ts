@@ -4,13 +4,14 @@ import { Router } from '@angular/router';
 import { DropDownItem } from '../../../models/DropDownItem';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { LOCATION, PROFILE, HIRING_MANAGERS, EMPLOYMENT_TYPE, SKILLS } from 'src/app/constants/constants';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Observable } from 'rxjs';
 import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
-import {map, startWith} from 'rxjs/operators';
+import { map, startWith } from 'rxjs/operators';
 import { JobDescription } from 'src/app/models/JobDescription';
 import { JobDescriptionWithSkills } from 'src/app/models/JobDescriptionWithSkills';
+import { CustomValidators } from 'src/app/utils/CustomValidators';
 
 @Component({
   selector: 'app-add-opportunity',
@@ -54,19 +55,19 @@ export class AddOpportunityComponent implements OnInit {
     private API: APIService,
     private router: Router,
     private formBuilder: FormBuilder) {
-      this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
-        startWith(null),
-        map((fruit: string | null) => fruit ? this._filter(fruit) : this.skillSet.map(x => x.name).slice()));
-     }
+    this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
+      startWith(null),
+      map((fruit: string | null) => fruit ? this._filter(fruit) : this.skillSet.map(x => x.name).slice()));
+  }
 
-  jobDescriptionForm = this.formBuilder.group({
-    profile: new FormControl(this.selectedProfile),
-    employmentType: new FormControl(this.selectedEmploymentType),
-    openings: new FormControl(this.openings),
-    location: new FormControl(this.selectedLocation),
-    hiringManager: new FormControl(this.selectedHiringManager),
-    skills: new FormControl([]),
-    description: new FormControl(this.jobDescription),
+  jobDescriptionForm = new FormGroup({
+    profile: new FormControl('', [Validators.required]),
+    employmentType: new FormControl('', [Validators.required]),
+    openings: new FormControl(this.openings, [Validators.required, Validators.min(1), Validators.max(10)]),
+    location: new FormControl(this.selectedLocation, [Validators.required]),
+    hiringManager: new FormControl('', [Validators.required]),
+    skills: new FormControl([], CustomValidators.validateRequired),
+    description: new FormControl('', [Validators.required, Validators.maxLength(2000), Validators.minLength(10)]),
 
   });
 
@@ -110,6 +111,8 @@ export class AddOpportunityComponent implements OnInit {
     this.fruitCtrl.setValue(null);
 
     this.selectedSkills.push(this.skillMap.get(event.option.viewValue));
+    // tslint:disable-next-line: no-string-literal
+    this.jobDescriptionForm.controls['skills'].setValue(this.selectedSkills.map(x => x));
   }
 
   private _filter(value: string): string[] {
@@ -119,25 +122,34 @@ export class AddOpportunityComponent implements OnInit {
   }
 
 
-  onSubmit(){
+  onSubmit() {
     let job = new JobDescription();
-    job.description = this.jobDescription;
-    job.employmentType = this.selectedEmploymentType;
-    job.hiringManager = this.selectedHiringManager;
-    job.location = this.selectedLocation;
-    job.openings = this.openings;
-    job.profile = this.selectedProfile;
+    job.description = this.jobDescriptionForm.value.description;
+    job.employmentType = this.jobDescriptionForm.value.employmentType;
+    job.hiringManager = this.jobDescriptionForm.value.hiringManager;
+    job.location = this.jobDescriptionForm.value.location;
+    job.openings = this.jobDescriptionForm.value.openings;
+    job.profile = this.jobDescriptionForm.value.profile;
     job.postedBy = 1;
     let jobSkill = new JobDescriptionWithSkills();
     jobSkill.jobDescription = job;
-    jobSkill.skillList = this.selectedSkills;
+    jobSkill.skillList = this.jobDescriptionForm.value.skills;
+    console.log('Ready to go: ', jobSkill);
 
     this.API.callApiPost('/addJobDescription', jobSkill).subscribe((res:any) => {
       console.log(res);
-      location.reload();
-      //this.router.navigate(['home']);
+      //location.reload();
+      this.router.navigate(['all']);
     });
+
+  }
+
+  resetForm() {
+    this.jobDescriptionForm.reset();
     
+    this.selectedSkills = [];
+    this.fruits.splice(0, this.fruits.length);
+    this.jobDescriptionForm.clearValidators();
   }
 
   ngOnInit(): void {
@@ -150,7 +162,7 @@ export class AddOpportunityComponent implements OnInit {
       this.skillSet = response[SKILLS];
 
       this.skillSet.forEach(x => this.skillMap.set(x.name, x.id));
-    }) ;
+    });
   }
 
 
