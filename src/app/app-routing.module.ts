@@ -5,9 +5,11 @@ import { AddOpportunityComponent } from './opportunity/components/add-opportunit
 import { ViewOpportunityComponent } from './opportunity/components/viewopportunities/view-opportunity/view-opportunity.component';
 import { SideNavBarComponent } from './side-nav/components/side-nav/side-nav-bar/side-nav-bar.component';
 import { ViewTrendsComponent } from './opportunity/components/view-trends/view-trends/view-trends.component';
+import { EditOpportunityComponent } from './opportunity/components/edit-opportunity/edit-opportunity/edit-opportunity.component';
 
 
 const routes: Routes = [
+  {path: 'edit/:id', component: EditOpportunityComponent},
   {path: 'insights', component: ViewTrendsComponent},
   {path: 'sidenav', component: SideNavBarComponent},
   {path: 'login', component: LoginComponent},

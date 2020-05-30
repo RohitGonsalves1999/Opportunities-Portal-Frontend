@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { GoogleLoginProvider, FacebookLoginProvider, AuthService } from 'angularx-social-login';
 import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
 import { Router } from '@angular/router';
+import { APIService } from 'src/app/providers/api.service';
+import { USER_ID, USER_EMAIL, USER_TOKEN } from 'src/app/constants/constants';
+
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -13,7 +17,9 @@ export class LoginComponent implements OnInit {
 
   constructor(
     public OAuth: AuthService,
-    private router: Router ) { }
+    private router: Router,
+    private API: APIService,
+    ) { }
 
   ngOnInit() {
   }
@@ -28,9 +34,24 @@ export class LoginComponent implements OnInit {
     }
     this.OAuth.signIn(socialPlatformProvider).then(socialusers => {
       console.log(socialProvider, socialusers);
-      console.log(socialusers);
-      this.router.navigate(['all']);
+      console.log(socialusers.email);
+
+      this.login(socialusers.authToken, socialusers.email);
       // this.Savesresponse(socialusers);
+    });
+  }
+
+
+  public login(authToken, email){
+    console.log(email)
+    this.API.loginApi(authToken, email).subscribe((res) => {
+      
+      console.log(res);
+
+      sessionStorage.setItem(USER_ID,res[USER_ID]);
+      sessionStorage.setItem(USER_EMAIL,res[USER_EMAIL]);
+      sessionStorage.setItem(USER_TOKEN,res[USER_TOKEN]);
+      this.router.navigate(['all']);
     });
   }
 

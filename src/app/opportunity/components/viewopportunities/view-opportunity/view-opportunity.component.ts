@@ -48,7 +48,7 @@ export class ViewOpportunityComponent implements OnInit {
 
   public dataSource: MatTableDataSource<JobDescriptionWithSkills>;
 
-  displayedColumns: string[] = ['profile', 'employmentType', 'location', 'openings', 'hiringManager', 'skills', 'jobDescription' ,'star'];
+  displayedColumns: string[] = ['profile', 'employmentType', 'location', 'openings', 'hiringManager', 'skills', 'jobDescription' , 'star'];
   filterString = '';
   getSkillsString(job) {
     return job.skillList.map(x => this.skills[x]).join(', ');
@@ -90,39 +90,39 @@ export class ViewOpportunityComponent implements OnInit {
   }
 
   getJobString(job: JobDescriptionWithSkills) {
-    let filterList = this.toppings.value?this.toppings.value:this.toppingList;
+    const filterList = this.toppings.value ? this.toppings.value : this.toppingList;
 
-    let location = this.locations[job.jobDescription.location];
-    let profile = this.profiles[job.jobDescription.profile];
-    let hiringManager = this.hiringManagers[job.jobDescription.hiringManager]
-    let employmentType = this.employmentTypes[job.jobDescription.employmentType];
-    let skills = this.getSkillsString(job);
-    let jobDesc = job.jobDescription.description;
-    
+    const location = this.locations[job.jobDescription.location];
+    const profile = this.profiles[job.jobDescription.profile];
+    const hiringManager = this.hiringManagers[job.jobDescription.hiringManager];
+    const employmentType = this.employmentTypes[job.jobDescription.employmentType];
+    const skills = this.getSkillsString(job);
+    const jobDesc = job.jobDescription.description;
+
     let resultString = '';
 
-    if( filterList.includes('Location')){
+    if ( filterList.includes('Location')) {
       resultString += location;
     }
 
-    if(filterList.includes('Profile')){
+    if (filterList.includes('Profile')) {
       resultString += profile;
     }
 
 
-    if(filterList.includes('Employment Type')){
+    if (filterList.includes('Employment Type')) {
       resultString += employmentType;
     }
 
-    if(filterList.includes('Hiring Manager')){
+    if (filterList.includes('Hiring Manager')) {
       resultString += hiringManager;
     }
 
-    if(filterList.includes('Skills')){
+    if (filterList.includes('Skills')) {
       resultString += skills;
     }
 
-    if(filterList.includes('Job Description')){
+    if (filterList.includes('Job Description')) {
       resultString += jobDesc;
     }
 
@@ -134,14 +134,14 @@ export class ViewOpportunityComponent implements OnInit {
 
     console.log(this.getJobString(job));
 
-    let regex = new RegExp(this.filterString.toLowerCase());
+    const regex = new RegExp(this.filterString.toLowerCase());
     return regex.test(this.getJobString(job).toLowerCase());
 
   }
 
   filterData() {
     this.flipped = undefined;
-    console.log("Filter: ", this.filterString);
+    console.log('Filter: ', this.filterString);
 
     this.filteredJobsData = this.jobsData.filter(x => this.testJob(x));
   }
@@ -153,6 +153,11 @@ export class ViewOpportunityComponent implements OnInit {
         animal: job.jobDescription.description
       }
     });
+  }
+
+
+  navigateToEdit(jobId) {
+    this.router.navigate(['edit', jobId]);
   }
 
   ngOnInit(): void {

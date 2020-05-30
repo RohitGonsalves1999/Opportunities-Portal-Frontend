@@ -123,7 +123,7 @@ export class AddOpportunityComponent implements OnInit {
 
 
   onSubmit() {
-    let job = new JobDescription();
+    const job = new JobDescription();
     job.description = this.jobDescriptionForm.value.description;
     job.employmentType = this.jobDescriptionForm.value.employmentType;
     job.hiringManager = this.jobDescriptionForm.value.hiringManager;
@@ -131,14 +131,14 @@ export class AddOpportunityComponent implements OnInit {
     job.openings = this.jobDescriptionForm.value.openings;
     job.profile = this.jobDescriptionForm.value.profile;
     job.postedBy = 1;
-    let jobSkill = new JobDescriptionWithSkills();
+    const jobSkill = new JobDescriptionWithSkills();
     jobSkill.jobDescription = job;
     jobSkill.skillList = this.jobDescriptionForm.value.skills;
     console.log('Ready to go: ', jobSkill);
 
-    this.API.callApiPost('/addJobDescription', jobSkill).subscribe((res:any) => {
+    this.API.callApiPost('/addJobDescription', jobSkill).subscribe((res: any) => {
       console.log(res);
-      //location.reload();
+      // location.reload();
       this.router.navigate(['all']);
     });
 
@@ -146,7 +146,7 @@ export class AddOpportunityComponent implements OnInit {
 
   resetForm() {
     this.jobDescriptionForm.reset();
-    
+
     this.selectedSkills = [];
     this.fruits.splice(0, this.fruits.length);
     this.jobDescriptionForm.clearValidators();

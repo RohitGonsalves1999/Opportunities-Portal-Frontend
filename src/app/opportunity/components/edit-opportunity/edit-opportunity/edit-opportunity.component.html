@@ -1,1 +1,84 @@
-<p>edit-opportunity works!</p>
+<div class="center">
+    <div class = "formContainer">
+    <form (submit) = "onSubmit()" [formGroup] = "jobDescriptionForm">
+        <mat-form-field>
+            <mat-label>Profile</mat-label>
+            <mat-select [(value)]="selectedProfile" formControlName="profile">
+                <mat-option *ngFor="let food of proflie" [value]="food.id">
+                    {{food.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    
+        
+    
+        <mat-form-field>
+            <mat-label>Employment Type</mat-label>
+            <mat-select required [(value)]="selectedEmploymentType" formControlName="employmentType">
+                <mat-option *ngFor="let food of employmentType" [value]="food.id">
+                    {{food.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    
+    
+    
+        <mat-form-field class="example-full-width">
+            <mat-label>Openings</mat-label>
+            <input type='number' matInput placeholder="Number Of Vacancies" formControlName="openings" name = "openings" required >
+        </mat-form-field>
+      
+        <mat-form-field>
+            <mat-label>Location</mat-label>
+            <mat-select required [(value)]="selectedLocation" formControlName="location">
+                <mat-option *ngFor="let food of location" [value]="food.id">
+                    {{food.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    
+    
+        <mat-form-field>
+            <mat-label>Hiring Manager</mat-label>
+            <mat-select required [(value)]="selectedHiringManager" formControlName="hiringManager">
+                <mat-option *ngFor="let food of hiringManager" [value]="food.id">
+                    {{food.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    
+    
+        <mat-form-field class="example-chip-list">
+            <mat-chip-list #chipList aria-label="Fruit selection" formControlName="skills">
+                <mat-chip *ngFor="let fruit of fruits" [selectable]="selectable" [removable]="removable"
+                    (removed)="remove(fruit)">
+                    {{fruit}}
+                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                </mat-chip>
+                <input placeholder="Type in the Skill" #fruitInput [formControl]="fruitCtrl" [matAutocomplete]="auto"
+                [matChipInputAddOnBlur]="false"
+                    [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                    (matChipInputTokenEnd)="add($event)">
+            </mat-chip-list>
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                <mat-option *ngFor="let fruit of filteredFruits | async" [value]="fruit">
+                    {{fruit}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+    
+    
+        <mat-form-field class="example-chip-list">
+            <mat-label>Job Description</mat-label>
+            <textarea name = "jobDescription" formControlName = "description"
+            cdkTextareaAutosize
+            cdkAutosizeMinRows="1"
+            cdkAutosizeMaxRows="5" matInput placeholder="Ex. It makes me feel..."></textarea>
+        </mat-form-field>
+    
+    
+        <button type="submit" mat-raised-button color="primary">Sumbit</button>
+    </form>
+    
+    </div>
+    </div>
