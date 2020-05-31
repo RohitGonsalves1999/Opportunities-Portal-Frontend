@@ -33,13 +33,17 @@
     </mat-drawer>
     
     <mat-drawer-content>
-        <mat-toolbar color="primary" class="stickyToolbar">
-            <mat-toolbar-row>
+        <mat-toolbar *ngIf = "sessionValue" color="primary" class="stickyToolbar">
+            <mat-toolbar-row class="navbar">
                 <button mat-icon-button color="white" (click) = "drawer.toggle()">
                     <mat-icon>menu</mat-icon>
                   </button>
+                  <button mat-button color="white" (click) = "logout()">
+                    <mat-icon>keyboard_tab</mat-icon> Logout
+                  </button>
             </mat-toolbar-row>
           </mat-toolbar>
+        
           <router-outlet></router-outlet>          
     </mat-drawer-content>
 </mat-drawer-container>

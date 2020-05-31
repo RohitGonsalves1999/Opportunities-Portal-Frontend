@@ -10,6 +10,12 @@ export class APIService {
   private BASE_URL = 'http://localhost:8081/api/jobs';
 
 
+  async callAPIPostAsync(endpoint , data) {
+    console.log("Token: ", data);
+    return await this.http.post(this.BASE_URL + endpoint, data).toPromise();
+  }
+
+
   loginApi = (userInfo) => {
     return this.http.post(this.BASE_URL + `/signin/google`, userInfo);
   }

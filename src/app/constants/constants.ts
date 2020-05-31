@@ -7,4 +7,5 @@ export const PROFILE = 'profile';
 export const USER_EMAIL = 'email';
 export const USER_ID = 'id';
 export const USER_TOKEN = 'token';
+export const SESSION = 'session';
 

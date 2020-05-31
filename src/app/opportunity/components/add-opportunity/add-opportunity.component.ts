@@ -123,6 +123,11 @@ export class AddOpportunityComponent implements OnInit {
 
 
   onSubmit() {
+
+    if(!this.jobDescriptionForm.valid){
+      console.log('Invalid Form');
+      return;
+    }
     const job = new JobDescription();
     job.description = this.jobDescriptionForm.value.description;
     job.employmentType = this.jobDescriptionForm.value.employmentType;

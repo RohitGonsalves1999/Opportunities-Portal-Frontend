@@ -71,9 +71,9 @@ export class ViewTrendsComponent implements OnInit {
   }
 
 
-  profileChartLabels: Label[] = ['BMW', 'Ford', 'Tesla'];
+  profileChartLabels: Label[] = ['BMW', 'Ford', 'Tesla', 'chevy', 'F!', 'AUDI'];
   profileChartData: MultiDataSet = [
-    [55, 25, 20],
+    [55, 25, 20,25,30,35],
   ];
   profileChartType: ChartType = 'doughnut';
 

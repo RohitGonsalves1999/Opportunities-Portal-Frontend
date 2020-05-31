@@ -6,16 +6,39 @@ import { ViewOpportunityComponent } from './opportunity/components/viewopportuni
 import { SideNavBarComponent } from './side-nav/components/side-nav/side-nav-bar/side-nav-bar.component';
 import { ViewTrendsComponent } from './opportunity/components/view-trends/view-trends/view-trends.component';
 import { EditOpportunityComponent } from './opportunity/components/edit-opportunity/edit-opportunity/edit-opportunity.component';
-
+import { AuthGuardService as AuthGuard } from '../app/auth/providers/auth-guard/auth-guard.service';
 
 const routes: Routes = [
-  {path: 'edit/:id', component: EditOpportunityComponent},
-  {path: 'insights', component: ViewTrendsComponent},
-  {path: 'sidenav', component: SideNavBarComponent},
-  {path: 'login', component: LoginComponent},
-  {path: 'home', component: AddOpportunityComponent},
-  {path: 'all', component: ViewOpportunityComponent},
-  {path: '**', component: LoginComponent},
+  {
+    path: 'edit/:id',
+    component: EditOpportunityComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'insights',
+    component: ViewTrendsComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'sidenav',
+    component: SideNavBarComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+  },
+  {
+    path: 'home',
+    component: AddOpportunityComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'all',
+    component: ViewOpportunityComponent,
+    canActivate: [AuthGuard]
+  },
+  { path: '**', component: LoginComponent },
 ];
 
 @NgModule({

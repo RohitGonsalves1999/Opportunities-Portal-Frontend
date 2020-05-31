@@ -3,7 +3,7 @@ import { GoogleLoginProvider, FacebookLoginProvider, AuthService } from 'angular
 import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
 import { Router } from '@angular/router';
 import { APIService } from 'src/app/providers/api.service';
-import { USER_ID, USER_EMAIL, USER_TOKEN } from 'src/app/constants/constants';
+import { USER_ID, USER_EMAIL, USER_TOKEN, SESSION } from 'src/app/constants/constants';
 import { User } from 'src/app/models/User';
 
 
@@ -59,6 +59,7 @@ export class LoginComponent implements OnInit {
       sessionStorage.setItem(USER_ID, res[USER_ID]);
       sessionStorage.setItem(USER_EMAIL, res[USER_EMAIL]);
       sessionStorage.setItem(USER_TOKEN, res[USER_TOKEN]);
+      sessionStorage.setItem(SESSION, 'true');
       this.router.navigate(['all']);
     });
   }
