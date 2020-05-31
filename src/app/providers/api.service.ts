@@ -10,8 +10,8 @@ export class APIService {
   private BASE_URL = 'http://localhost:8081/api/jobs';
 
 
-  loginApi = (authToken, email) => {
-    return this.http.get(this.BASE_URL + `/signin/google?code=${authToken}&email=${email}`);
+  loginApi = (userInfo) => {
+    return this.http.post(this.BASE_URL + `/signin/google`, userInfo);
   }
 
   callApi = urlSuffix => {

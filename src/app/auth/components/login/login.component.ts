@@ -4,6 +4,7 @@ import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
 import { Router } from '@angular/router';
 import { APIService } from 'src/app/providers/api.service';
 import { USER_ID, USER_EMAIL, USER_TOKEN } from 'src/app/constants/constants';
+import { User } from 'src/app/models/User';
 
 
 @Component({
@@ -36,21 +37,28 @@ export class LoginComponent implements OnInit {
       console.log(socialProvider, socialusers);
       console.log(socialusers.email);
 
-      this.login(socialusers.authToken, socialusers.email);
+      
+      let user = new User();
+
+      user.name = socialusers.name;
+      user.email = socialusers.email;
+      user.authToken = socialusers.authToken;
+      this.login(user);
       // this.Savesresponse(socialusers);
     });
   }
 
 
-  public login(authToken, email){
-    console.log(email)
-    this.API.loginApi(authToken, email).subscribe((res) => {
-      
+  public login(user: User){
+   
+    
+    this.API.loginApi(user).subscribe((res) => {
+
       console.log(res);
 
-      sessionStorage.setItem(USER_ID,res[USER_ID]);
-      sessionStorage.setItem(USER_EMAIL,res[USER_EMAIL]);
-      sessionStorage.setItem(USER_TOKEN,res[USER_TOKEN]);
+      sessionStorage.setItem(USER_ID, res[USER_ID]);
+      sessionStorage.setItem(USER_EMAIL, res[USER_EMAIL]);
+      sessionStorage.setItem(USER_TOKEN, res[USER_TOKEN]);
       this.router.navigate(['all']);
     });
   }
