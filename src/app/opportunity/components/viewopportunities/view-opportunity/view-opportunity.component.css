@@ -120,6 +120,10 @@
     max-width: 20%;
   }
 
+  .skillsColumn{
+    width: 20%;
+  }
+
 
   .searchFieldContainer{
     align-self: center;

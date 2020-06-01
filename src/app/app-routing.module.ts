@@ -7,6 +7,7 @@ import { SideNavBarComponent } from './side-nav/components/side-nav/side-nav-bar
 import { ViewTrendsComponent } from './opportunity/components/view-trends/view-trends/view-trends.component';
 import { EditOpportunityComponent } from './opportunity/components/edit-opportunity/edit-opportunity/edit-opportunity.component';
 import { AuthGuardService as AuthGuard } from '../app/auth/providers/auth-guard/auth-guard.service';
+import { ErrorHandlingComponent } from './error/components/error-handling/error-handling.component';
 
 const routes: Routes = [
   {
@@ -38,7 +39,7 @@ const routes: Routes = [
     component: ViewOpportunityComponent,
     canActivate: [AuthGuard]
   },
-  { path: '**', component: LoginComponent },
+  { path: '**', component: ErrorHandlingComponent},
 ];
 
 @NgModule({

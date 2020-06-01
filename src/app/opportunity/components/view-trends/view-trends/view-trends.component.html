@@ -1,7 +1,7 @@
 
 <div class="container">
   <div class="jobsPosted">
-    <p>New Opportunities this Month: {{ opportunities }}</p>
+    <p>2020</p>
   </div>
   <div class="chart-wrapper">
     <div class="chartLabel">
@@ -18,7 +18,7 @@
       <div class="chartLabel">
         <p class="chartLabelText"> Location Wise Opportunities </p>
       </div>
-      <canvas baseChart [data]="locationChartData" [labels]="locationChartLabels" [chartType]="locationChartType">
+      <canvas baseChart [data]="locationChartData" [labels]="locationChartLabels" [chartType]="locationChartType" [legend]="pieLegends">
       </canvas>
     </div>
 
@@ -28,7 +28,10 @@
         <p class="chartLabelText"> Hiring Manager Wise Opportunities </p>
       </div>
       <canvas baseChart [data]="hiringManagerChartData" [labels]="hiringManagerChartLabels"
-        [chartType]="hiringManagerChartType">
+        [chartType]="hiringManagerChartType"
+        [legend]="pieLegends"
+        
+        >
       </canvas>
     </div>
   </div>
@@ -49,14 +52,18 @@
     <div class="chartLabel">
       <p class="chartLabelText"> Profile Based Job Postings</p>
     </div>
-    <canvas baseChart [data]="profileChartData" [labels]="profileChartLabels" [chartType]="profileChartType">
+    <canvas baseChart [data]="profileChartData" [labels]="profileChartLabels" [chartType]="profileChartType"
+    [legend]="pieLegends"
+    >
     </canvas>
   </div>
   <div class="chart-wrapper">
     <div class="chartLabel">
       <p class="chartLabelText"> Employment Type Based Job Postings</p>
     </div>
-    <canvas baseChart [data]="employmentTypeData" [labels]="employmentTypeChartLabels" [chartType]="profileChartType">
+    <canvas baseChart [data]="employmentTypeData" [labels]="employmentTypeChartLabels" [chartType]="profileChartType"
+    [legend]="pieLegends"
+    >
     </canvas>
   </div>
 </div>

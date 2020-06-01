@@ -6,7 +6,7 @@ import { LOCATION, PROFILE, HIRING_MANAGERS, EMPLOYMENT_TYPE, SKILLS } from 'src
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { FormControl } from '@angular/forms';
 
@@ -46,9 +46,21 @@ export class ViewOpportunityComponent implements OnInit {
   employmentTypes: Map<number, string>;
   profiles: Map<number, string>;
 
+  isAsc = true;
+  sortColumn: string;
+
   public dataSource: MatTableDataSource<JobDescriptionWithSkills>;
 
-  displayedColumns: string[] = ['profile', 'employmentType', 'location', 'openings', 'hiringManager', 'skills', 'jobDescription' , 'star'];
+  displayedColumns: string[] = [
+    'profile',
+    'employmentType',
+    'location',
+    'openings',
+    'hiringManager',
+    'skills',
+    'postedOn',
+    'jobDescription',
+    'star'];
   filterString = '';
   getSkillsString(job) {
     return job.skillList.map(x => this.skills[x]).join(', ');
@@ -71,6 +83,39 @@ export class ViewOpportunityComponent implements OnInit {
     }
   }
 
+  onSortData(sortColumn){
+
+    console.log('YO');
+    if (sortColumn == this.sortColumn) {
+      this.isAsc = !this.isAsc;
+    } else {
+      this.sortColumn = sortColumn;
+      this.isAsc = true
+    }
+
+    this.sortData();
+  }
+
+  sortData() {
+    let data = this.dataSource.data;
+    if (this.sortColumn != undefined) {
+      data = data.sort((a, b) => {
+        console.log('A:', a.jobDescription[this.sortColumn]);
+        return this.compare(a.jobDescription[this.sortColumn], b.jobDescription[this.sortColumn], this.isAsc);
+      });
+    }
+
+    this.dataSource = new MatTableDataSource(data);
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
+  private compare(a, b, isAsc) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  }
+
 
   async deleteJob(id) {
     this.API.callApi(`/deleteJobDescription/${id}`).subscribe(res => {
@@ -82,7 +127,7 @@ export class ViewOpportunityComponent implements OnInit {
 
 
   async resolveJob(id) {
-    this.API.callApi(`/deleteJobDescription/${id}`).subscribe(res => {
+    this.API.callApi(`/resolveJobDescription/${id}`).subscribe(res => {
       this.flipped = undefined;
       this.openSnackBar();
       this.ngOnInit();
@@ -101,7 +146,7 @@ export class ViewOpportunityComponent implements OnInit {
 
     let resultString = '';
 
-    if ( filterList.includes('Location')) {
+    if (filterList.includes('Location')) {
       resultString += location;
     }
 
@@ -180,7 +225,6 @@ export class ViewOpportunityComponent implements OnInit {
       this.filteredJobsData = res;
       this.dataSource = new MatTableDataSource(res);
       this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
     });
   }
 

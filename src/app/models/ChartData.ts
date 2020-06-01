@@ -6,4 +6,5 @@ export class ChartData {
     employmentType: ChartDataObject;
     hiringManager: ChartDataObject;
     skillSet: ChartDataObject;
+    resolvedSkillSet: ChartDataObject;
 }

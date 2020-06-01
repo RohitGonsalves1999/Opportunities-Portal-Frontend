@@ -1,0 +1,16 @@
+.container{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.errorCode{
+    font-size: 200px;
+    color: #888888;
+}
+
+.errorMessage{
+    font-size: 36px;
+}

@@ -21,7 +21,7 @@
   </div>
 
   <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource" matSort>
+    <table mat-table [dataSource]="dataSource" matSort (matSortChange)="onSortData($event)">
 
       <!-- ID Column -->
       <ng-container matColumnDef="profile">
@@ -43,7 +43,7 @@
 
       <!-- Color Column -->
       <ng-container matColumnDef="openings">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Openings </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Openings <button mat-icon-button (click) = "onSortData('openings')"><mat-icon>sort</mat-icon></button> </th>
         <td mat-cell *matCellDef="let row"> {{row.jobDescription.openings }} </td>
       </ng-container>
 
@@ -55,8 +55,14 @@
 
 
       <ng-container matColumnDef="skills">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Skills </th>
-        <td mat-cell *matCellDef="let row"> {{ getSkillsString(row) }} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="skillsColumn"> Skills </th>
+        <td mat-cell *matCellDef="let row" class="skillsColumn"> {{ getSkillsString(row) }} </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="postedOn">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Posted On  <button mat-icon-button (click) = "onSortData('postedOn')"><mat-icon>sort</mat-icon></button> </th>
+        <td mat-cell *matCellDef="let row"> {{ row.jobDescription.postedOn | date:'dd/MM/yyyy'}} </td>
       </ng-container>
 
       <ng-container matColumnDef="jobDescription">
@@ -77,9 +83,9 @@
             <button mat-menu-item (click) = "navigateToEdit(element.jobDescription.id)">
               <mat-icon>edit</mat-icon>Edit
             </button>
-            <button mat-menu-item (click)="resolveJob(element.jobDescription.id)">
+            <!-- <button mat-menu-item (click)="resolveJob(element.jobDescription.id)">
               <mat-icon color="primary">check</mat-icon>Resolve
-            </button>
+            </button> -->
             <button mat-menu-item (click)="deleteJob(element.jobDescription.id)">
               <mat-icon color="warn">delete</mat-icon>Delete
             </button>

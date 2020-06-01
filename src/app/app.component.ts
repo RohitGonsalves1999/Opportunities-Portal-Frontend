@@ -22,7 +22,6 @@ export class AppComponent {
     sessionStorage.setItem(USER_EMAIL, '');
     sessionStorage.setItem(USER_TOKEN, 'jddfjkdjgkojvx');
     sessionStorage.setItem(SESSION, 'false');
-    this.router.navigate(['login']);
     window.location.reload();
   }
 }

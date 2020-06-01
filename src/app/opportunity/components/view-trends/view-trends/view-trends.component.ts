@@ -18,6 +18,7 @@ export class ViewTrendsComponent implements OnInit {
   ) { }
 
   opportunities = 0;
+  pieLegends = false;
   yAxes =  [{id: 'y-axis-1', type: 'linear', position: 'left', ticks: {min: 0, max:100}}];
 
   skillChartOptions: ChartOptions = {

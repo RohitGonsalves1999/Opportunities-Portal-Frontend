@@ -154,7 +154,7 @@ export class AddOpportunityComponent implements OnInit {
 
     this.selectedSkills = [];
     this.fruits.splice(0, this.fruits.length);
-    this.jobDescriptionForm.clearValidators();
+    //this.jobDescriptionForm.clearValidators();
   }
 
   ngOnInit(): void {
