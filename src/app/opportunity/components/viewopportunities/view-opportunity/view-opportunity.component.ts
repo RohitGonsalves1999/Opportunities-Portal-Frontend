@@ -39,7 +39,8 @@ export class ViewOpportunityComponent implements OnInit {
   toppingList: string[] = ['Profile', 'Location', 'Employment Type', 'Hiring Manager', 'Skills', 'Job Description'];
   jobsData: JobDescriptionWithSkills[] = [];
   filteredJobsData: JobDescriptionWithSkills[] = [];
-
+  numericCols = ['openings', 'postedOn'];
+  isSortOnNumericColumn = true;
   hiringManagers: Map<number, string>;
   skills: Map<number, string>;
   locations: Map<number, string>;
@@ -83,9 +84,10 @@ export class ViewOpportunityComponent implements OnInit {
     }
   }
 
-  onSortData(sortColumn){
+  onSortData(sortColumn) {
 
     console.log('YO');
+    this.isSortOnNumericColumn = this.numericCols.includes(sortColumn);
     if (sortColumn == this.sortColumn) {
       this.isAsc = !this.isAsc;
     } else {
@@ -100,8 +102,15 @@ export class ViewOpportunityComponent implements OnInit {
     let data = this.dataSource.data;
     if (this.sortColumn != undefined) {
       data = data.sort((a, b) => {
-        console.log('A:', a.jobDescription[this.sortColumn]);
-        return this.compare(a.jobDescription[this.sortColumn], b.jobDescription[this.sortColumn], this.isAsc);
+        if (this.isSortOnNumericColumn) {
+          return this.compare(a.jobDescription[this.sortColumn], b.jobDescription[this.sortColumn], this.isAsc);
+        }
+        else {
+          console.log(this[this.sortColumn + 's'][a.jobDescription[this.sortColumn]]);
+          return this.compare(
+            this[this.sortColumn + 's'][a.jobDescription[this.sortColumn]]
+          , this[this.sortColumn + 's'][b.jobDescription[this.sortColumn]], this.isAsc);
+        }
       });
     }
 
