@@ -147,7 +147,7 @@ export class EditOpportunityComponent implements OnInit {
     jobSkill.skillList = this.jobDescriptionForm.value.skills;
     console.log('Ready to go: ', jobSkill);
 
-    this.API.callApiPut('/updateJobDescription', jobSkill).subscribe((res: any) => {
+    this.API.callApiPut('/JobDescription', jobSkill).subscribe((res: any) => {
       console.log(res);
       // location.reload();
       this.router.navigate(['all']);
@@ -165,7 +165,7 @@ export class EditOpportunityComponent implements OnInit {
 
 
   populateJobDescription() {
-    this.API.callApi(`/getAllJobDescriptions/${this.jobId}`).subscribe((res: JobDescriptionWithSkills) => {
+    this.API.callApi(`/JobDescription/${this.jobId}`).subscribe((res: JobDescriptionWithSkills) => {
       console.log(res);
       this.jobObject = res;
 
@@ -192,7 +192,7 @@ export class EditOpportunityComponent implements OnInit {
     }
 
 
-    this.API.callApi('/getDropDownItems').subscribe((response: Map<string, DropDownItem[]>) => {
+    this.API.callApi('/DropDownItems').subscribe((response: Map<string, DropDownItem[]>) => {
       console.log(response);
       this.location = response[LOCATION];
       this.proflie = response[PROFILE];

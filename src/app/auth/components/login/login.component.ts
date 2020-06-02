@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
 
       user.name = socialusers.name;
       user.email = socialusers.email;
-      user.authToken = socialusers.authToken;
+      user.authToken = socialusers.idToken;
       this.login(user);
       // this.Savesresponse(socialusers);
     });

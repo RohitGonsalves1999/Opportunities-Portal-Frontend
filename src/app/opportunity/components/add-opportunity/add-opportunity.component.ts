@@ -141,7 +141,7 @@ export class AddOpportunityComponent implements OnInit {
     jobSkill.skillList = this.jobDescriptionForm.value.skills;
     console.log('Ready to go: ', jobSkill);
 
-    this.API.callApiPost('/addJobDescription', jobSkill).subscribe((res: any) => {
+    this.API.callApiPost('/JobDescription', jobSkill).subscribe((res: any) => {
       console.log(res);
       // location.reload();
       this.router.navigate(['all']);
@@ -158,7 +158,7 @@ export class AddOpportunityComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.API.callApi('/getDropDownItems').subscribe((response: Map<string, DropDownItem[]>) => {
+    this.API.callApi('/DropDownItems').subscribe((response: Map<string, DropDownItem[]>) => {
       console.log(response);
       this.location = response[LOCATION];
       this.proflie = response[PROFILE];

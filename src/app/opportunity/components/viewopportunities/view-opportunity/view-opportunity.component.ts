@@ -216,7 +216,7 @@ export class ViewOpportunityComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.API.callApi('/getDropDownMap').subscribe((response => {
+    this.API.callApi('/DropDownMap').subscribe((response => {
       console.log(response);
       this.locations = response[LOCATION];
       this.profiles = response[PROFILE];
@@ -228,7 +228,7 @@ export class ViewOpportunityComponent implements OnInit {
       console.log(this.skills);
     }));
 
-    this.API.callApi('/getAllJobDescriptions/').subscribe((res: JobDescriptionWithSkills[]) => {
+    this.API.callApi('/JobDescription/').subscribe((res: JobDescriptionWithSkills[]) => {
       console.log(res[0]);
       this.jobsData = res;
       this.filteredJobsData = res;

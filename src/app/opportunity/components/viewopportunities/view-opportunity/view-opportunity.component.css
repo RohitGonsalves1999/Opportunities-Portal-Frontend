@@ -90,7 +90,7 @@
       padding-bottom: 9%;
       
       
-      height: 100%;
+      height: auto;
   }
 
   .cardBackActions{
@@ -132,4 +132,13 @@
     width: 100%;
     display: flex;
     flex-direction: row;
+  }
+
+  .titleContainer{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 72px;
+    margin-bottom: 5%;
   }
