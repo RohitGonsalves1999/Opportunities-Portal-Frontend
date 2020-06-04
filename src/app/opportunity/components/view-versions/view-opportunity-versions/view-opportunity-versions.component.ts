@@ -1,32 +1,36 @@
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
-import { APIService } from 'src/app/providers/api.service';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { DialogData } from '../../viewopportunities/view-opportunity/view-opportunity.component';
+import { MatTableDataSource } from '@angular/material/table';
 import { JobDescriptionWithSkills } from 'src/app/models/JobDescriptionWithSkills';
-import { LOCATION, PROFILE, HIRING_MANAGERS, EMPLOYMENT_TYPE, SKILLS } from 'src/app/constants/constants';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { HIRING_MANAGERS, EMPLOYMENT_TYPE, SKILLS, PROFILE, LOCATION } from 'src/app/constants/constants';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort, Sort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 import { FormControl } from '@angular/forms';
-
-export interface DialogData {
-  animal: string;
-  name: string;
-}
+import { APIService } from 'src/app/providers/api.service';
 
 @Component({
-  selector: 'app-view-opportunity',
-  templateUrl: './view-opportunity.component.html',
-  styleUrls: ['./view-opportunity.component.css']
+  selector: 'app-view-opportunity-versions',
+  templateUrl: './view-opportunity-versions.component.html',
+  styleUrls: ['./view-opportunity-versions.component.css']
 })
-export class ViewOpportunityComponent implements OnInit {
+export class ViewOpportunityVersionsComponent implements OnInit {
+
+  jobId = -1;
 
   constructor(
     private router: Router,
     private API: APIService,
     private dialog: MatDialog,
-    private _snackBar: MatSnackBar) { }
+    private _snackBar: MatSnackBar,
+    private route: ActivatedRoute) { 
+      this.route.params.subscribe(params => {
+        console.log(params);
+        this.jobId = params.id;
+      });
+    }
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -127,7 +131,7 @@ export class ViewOpportunityComponent implements OnInit {
 
 
   async deleteJob(id) {
-    this.API.callApi(`/delete/${id}`).subscribe(res => {
+    this.API.callApi(`/deleteJobDescription/${id}`).subscribe(res => {
       this.flipped = undefined;
       this.openSnackBar();
       this.ngOnInit();
@@ -214,11 +218,6 @@ export class ViewOpportunityComponent implements OnInit {
     this.router.navigate(['edit', jobId]);
   }
 
-
-  navigateToVersions(jobId){
-    this.router.navigate(['versions', jobId]);
-  }
-
   ngOnInit(): void {
 
     this.API.callApi('/DropDownMap').subscribe((response => {
@@ -233,7 +232,7 @@ export class ViewOpportunityComponent implements OnInit {
       console.log(this.skills);
     }));
 
-    this.API.callApi('/JobDescription/').subscribe((res: JobDescriptionWithSkills[]) => {
+    this.API.callApi(`/JobVersions/${this.jobId}`).subscribe((res: JobDescriptionWithSkills[]) => {
       console.log(res[0]);
       this.jobsData = res;
       this.filteredJobsData = res;
@@ -261,5 +260,4 @@ export class DialogOverviewExampleDialog {
   onNoClick(): void {
     this.dialogRef.close();
   }
-
 }

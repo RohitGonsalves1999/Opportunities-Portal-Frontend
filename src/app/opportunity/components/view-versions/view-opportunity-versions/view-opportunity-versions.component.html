@@ -1,0 +1,95 @@
+<div class="container">
+    <div class="titleContainer"><p>View Versions</p></div>
+    <div class="searchFieldContainer">
+      <div class="formField">
+        <mat-form-field>
+          <mat-label>Filter</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Filter your Data">
+        </mat-form-field>
+  
+      </div>
+  
+      <div class="formField">
+        <mat-form-field>
+          <mat-label>Filter By</mat-label>
+          <mat-select [formControl]="toppings" multiple>
+            <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+  
+      </div>
+  
+    </div>
+  
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" matSort (matSortChange)="onSortData($event)">
+  
+        <!-- ID Column -->
+        <ng-container matColumnDef="profile">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Profile </th>
+          <td mat-cell *matCellDef="let row"> {{profiles[row.jobDescription.profile]}} </td>
+        </ng-container>
+  
+        <!-- Progress Column -->
+        <ng-container matColumnDef="employmentType">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Employment Type <button mat-icon-button (click) = "onSortData('employmentType')"><mat-icon>sort</mat-icon></button>  </th>
+          <td mat-cell *matCellDef="let row"> {{employmentTypes[row.jobDescription.employmentType]}} </td>
+        </ng-container>
+  
+        <!-- Name Column -->
+        <ng-container matColumnDef="location">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Location <button mat-icon-button (click) = "onSortData('location')"><mat-icon>sort</mat-icon></button> </th>
+          <td mat-cell *matCellDef="let row"> {{locations[row.jobDescription.location]}} </td>
+        </ng-container>
+  
+        <!-- Color Column -->
+        <ng-container matColumnDef="openings">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Openings <button mat-icon-button (click) = "onSortData('openings')"><mat-icon>sort</mat-icon></button> </th>
+          <td mat-cell *matCellDef="let row"> {{row.jobDescription.openings }} </td>
+        </ng-container>
+  
+  
+        <ng-container matColumnDef="hiringManager">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Hiring Managers <button mat-icon-button (click) = "onSortData('hiringManager')"><mat-icon>sort</mat-icon></button> </th>
+          <td mat-cell *matCellDef="let row"> {{ hiringManagers[row.jobDescription.hiringManager] }} </td>
+        </ng-container>
+  
+  
+        <ng-container matColumnDef="skills">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="skillsColumn"> Skills </th>
+          <td mat-cell *matCellDef="let row" class="skillsColumn"> {{ getSkillsString(row) }} </td>
+        </ng-container>
+  
+  
+        <ng-container matColumnDef="postedOn">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Posted On  <button mat-icon-button (click) = "onSortData('postedOn')"><mat-icon>sort</mat-icon></button> </th>
+          <td mat-cell *matCellDef="let row"> {{ row.jobDescription.lastUpdated? ( row.jobDescription.lastUpdated | date:'dd/MM/yyyy') : 'Initial Version' }} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="jobDescription">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Job Descrption </th>
+          <td mat-cell *matCellDef="let row"><button mat-icon-button (click)="openDialog(row)">
+              <mat-icon>plagiarism</mat-icon>
+            </button></td>
+        </ng-container>
+  
+  
+        <ng-container matColumnDef="star" stickyEnd>
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            
+              <mat-icon>more_vert</mat-icon>
+            
+          
+          </td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+        </tr>
+      </table>
+  
+      <mat-paginator [pageSizeOptions]="[25, 100]"></mat-paginator>
+    </div>
+  
+  </div>

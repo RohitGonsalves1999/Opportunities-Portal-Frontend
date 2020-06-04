@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { LOCATION, HIRING_MANAGERS, PROFILE, EMPLOYMENT_TYPE, SKILLS } from 'src/app/constants/constants';
+import { LOCATION, HIRING_MANAGERS, PROFILE, EMPLOYMENT_TYPE, SKILLS, USER_ID } from 'src/app/constants/constants';
 import { JobDescriptionWithSkills } from 'src/app/models/JobDescriptionWithSkills';
 import { JobDescription } from 'src/app/models/JobDescription';
 import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material/autocomplete';
@@ -141,13 +141,13 @@ export class EditOpportunityComponent implements OnInit {
     job.location = this.jobDescriptionForm.value.location;
     job.openings = this.jobDescriptionForm.value.openings;
     job.profile = this.jobDescriptionForm.value.profile;
-    job.postedBy = 1;
+    job.lastUpdatedBy =  Number.parseInt(sessionStorage.getItem(USER_ID));
     const jobSkill = new JobDescriptionWithSkills();
     jobSkill.jobDescription = job;
     jobSkill.skillList = this.jobDescriptionForm.value.skills;
     console.log('Ready to go: ', jobSkill);
 
-    this.API.callApiPut('/JobDescription', jobSkill).subscribe((res: any) => {
+    this.API.callApiPost('/JobDescription/update', jobSkill).subscribe((res: any) => {
       console.log(res);
       // location.reload();
       this.router.navigate(['all']);

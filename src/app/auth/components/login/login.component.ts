@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { APIService } from 'src/app/providers/api.service';
 import { USER_ID, USER_EMAIL, USER_TOKEN, SESSION } from 'src/app/constants/constants';
 import { User } from 'src/app/models/User';
+import { AuthGuardService } from '../../providers/auth-guard/auth-guard.service';
 
 
 @Component({
@@ -20,9 +21,18 @@ export class LoginComponent implements OnInit {
     public OAuth: AuthService,
     private router: Router,
     private API: APIService,
+    private authguard: AuthGuardService,
     ) { }
 
   ngOnInit() {
+    if (![null, undefined, ''].includes(sessionStorage.getItem(USER_TOKEN))){
+      this.API.callApiPost('/verifySession',
+      sessionStorage.getItem(USER_TOKEN)).subscribe((res) => {
+        if(res['valid']){
+          this.router.navigate(['all']);
+        }
+      });
+    }
   }
 
 

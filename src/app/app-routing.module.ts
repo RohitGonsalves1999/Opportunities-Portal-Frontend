@@ -8,11 +8,17 @@ import { ViewTrendsComponent } from './opportunity/components/view-trends/view-t
 import { EditOpportunityComponent } from './opportunity/components/edit-opportunity/edit-opportunity/edit-opportunity.component';
 import { AuthGuardService as AuthGuard } from '../app/auth/providers/auth-guard/auth-guard.service';
 import { ErrorHandlingComponent } from './error/components/error-handling/error-handling.component';
+import { ViewOpportunityVersionsComponent } from './opportunity/components/view-versions/view-opportunity-versions/view-opportunity-versions.component';
 
 const routes: Routes = [
   {
     path: 'edit/:id',
     component: EditOpportunityComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'versions/:id',
+    component: ViewOpportunityVersionsComponent,
     canActivate: [AuthGuard]
   },
   {
@@ -39,7 +45,7 @@ const routes: Routes = [
     component: ViewOpportunityComponent,
     canActivate: [AuthGuard]
   },
-  { path: '**', component: ErrorHandlingComponent},
+  { path: '**', component: ErrorHandlingComponent },
 ];
 
 @NgModule({

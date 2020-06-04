@@ -3,7 +3,7 @@ import { APIService } from 'src/app/providers/api.service';
 import { Router } from '@angular/router';
 import { DropDownItem } from '../../../models/DropDownItem';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { LOCATION, PROFILE, HIRING_MANAGERS, EMPLOYMENT_TYPE, SKILLS } from 'src/app/constants/constants';
+import { LOCATION, PROFILE, HIRING_MANAGERS, EMPLOYMENT_TYPE, SKILLS, USER_ID } from 'src/app/constants/constants';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Observable } from 'rxjs';
 import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
@@ -135,7 +135,7 @@ export class AddOpportunityComponent implements OnInit {
     job.location = this.jobDescriptionForm.value.location;
     job.openings = this.jobDescriptionForm.value.openings;
     job.profile = this.jobDescriptionForm.value.profile;
-    job.postedBy = 1;
+    job.postedBy = Number.parseInt(sessionStorage.getItem(USER_ID));
     const jobSkill = new JobDescriptionWithSkills();
     jobSkill.jobDescription = job;
     jobSkill.skillList = this.jobDescriptionForm.value.skills;
@@ -154,7 +154,7 @@ export class AddOpportunityComponent implements OnInit {
 
     this.selectedSkills = [];
     this.fruits.splice(0, this.fruits.length);
-    //this.jobDescriptionForm.clearValidators();
+    this.jobDescriptionForm.clearValidators();
   }
 
   ngOnInit(): void {

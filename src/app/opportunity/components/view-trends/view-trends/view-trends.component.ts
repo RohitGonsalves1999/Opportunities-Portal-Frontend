@@ -19,7 +19,7 @@ export class ViewTrendsComponent implements OnInit {
 
   opportunities = 0;
   pieLegends = false;
-  yAxes =  [{id: 'y-axis-1', type: 'linear', position: 'left', ticks: {min: 0, max:100}}];
+  yAxes = [{ id: 'y-axis-1', type: 'linear', position: 'left', ticks: { min: 0, max: 100 } }];
 
   skillChartOptions: ChartOptions = {
     responsive: true,
@@ -27,7 +27,7 @@ export class ViewTrendsComponent implements OnInit {
       display: true
     },
     scales: {
-      yAxes: [{id: 'y-axis-1', type: 'linear', position: 'left', ticks: {min: 0}}],
+      yAxes: [{ id: 'y-axis-1', type: 'linear', position: 'left', ticks: { min: 0 } }],
 
     },
 
@@ -58,7 +58,7 @@ export class ViewTrendsComponent implements OnInit {
 
   public radarChartLabels = ['Q1', 'Q2', 'Q3', 'Q4'];
   public radarChartData = [
-    {data: [120, 130, 180, 70], label: '2017'},
+    { data: [120, 130, 180, 70], label: '2017' },
   ];
   public radarChartType = 'radar';
 
@@ -74,7 +74,7 @@ export class ViewTrendsComponent implements OnInit {
 
   profileChartLabels: Label[] = ['BMW', 'Ford', 'Tesla', 'chevy', 'F!', 'AUDI'];
   profileChartData: MultiDataSet = [
-    [55, 25, 20,25,30,35],
+    [55, 25, 20, 25, 30, 35],
   ];
   profileChartType: ChartType = 'doughnut';
 
@@ -89,7 +89,7 @@ export class ViewTrendsComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.API.callApi('/jobInsights').subscribe( (res: ChartData) => {
+    this.API.callApi('/jobInsights').subscribe((res: ChartData) => {
       console.log(res);
       this.skillChartLabels = res.skillSet.labels;
       this.skillChartData = [
@@ -104,9 +104,9 @@ export class ViewTrendsComponent implements OnInit {
       this.hiringManagerChartLabels = res.hiringManager.labels;
       this.hiringManagerChartData = [res.hiringManager.values];
 
-      this.radarChartLabels =  res.skillSet.labels;
+      this.radarChartLabels = res.skillSet.labels;
       this.radarChartData = [
-        { data: res.skillSet.values , label: 'Skill Count' }
+        { data: res.skillSet.values, label: 'Skill Count' }
       ];
 
 
@@ -115,7 +115,7 @@ export class ViewTrendsComponent implements OnInit {
 
       this.employmentTypeChartLabels = res.employmentType.labels;
       this.employmentTypeData = [res.employmentType.values];
-      });
+    });
 
 
 

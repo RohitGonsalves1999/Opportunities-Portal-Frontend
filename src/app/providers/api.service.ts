@@ -32,4 +32,8 @@ export class APIService {
     return this.http.put(this.BASE_URL + urlSuffix, data);
   }
 
+  callApiPatch = (urlSuffix, data) => {
+    return this.http.patch(this.BASE_URL + urlSuffix, data);
+  }
+
 }

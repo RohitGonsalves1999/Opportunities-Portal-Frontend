@@ -36,6 +36,7 @@ import { EditOpportunityComponent } from './opportunity/components/edit-opportun
 import { ViewTrendsComponent } from './opportunity/components/view-trends/view-trends/view-trends.component';
 import { SideNavBarComponent } from './side-nav/components/side-nav/side-nav-bar/side-nav-bar.component';
 import { ErrorHandlingComponent } from './error/components/error-handling/error-handling.component';
+import { ViewOpportunityVersionsComponent } from './opportunity/components/view-versions/view-opportunity-versions/view-opportunity-versions.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { ErrorHandlingComponent } from './error/components/error-handling/error-
     ViewTrendsComponent,
     SideNavBarComponent,
     ErrorHandlingComponent,
+    ViewOpportunityVersionsComponent,
 
 
   ],

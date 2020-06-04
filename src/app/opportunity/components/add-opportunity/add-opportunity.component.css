@@ -7,7 +7,7 @@
     justify-content: center;
     height: 91.5vh;
     align-items: center;
-    background-color: beige;
+    background-color: white;
     background-size: cover;
   }
 
@@ -23,8 +23,8 @@
     background-color: rgba(255, 255, 255, 1);
     width: 40vw;
     height: 70%;
-    border-radius: 2%;
-    box-shadow: 5px 5px 4px 5px #cccccc;
+    border-radius: 0.5%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.5);
     border-color: black;
     border-width: 2px;
 }

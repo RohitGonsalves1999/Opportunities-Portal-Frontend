@@ -82,11 +82,11 @@
           </button>
           <mat-menu #menu="matMenu">
             <button mat-menu-item (click) = "navigateToEdit(element.jobDescription.id)">
-              <mat-icon>edit</mat-icon>Edit
+              <mat-icon color="primary">edit</mat-icon>Edit
             </button>
-            <!-- <button mat-menu-item (click)="resolveJob(element.jobDescription.id)">
-              <mat-icon color="primary">check</mat-icon>Resolve
-            </button> -->
+            <button mat-menu-item (click)="navigateToVersions(element.jobDescription.id)">
+              <mat-icon >history</mat-icon>Versions
+            </button>
             <button mat-menu-item (click)="deleteJob(element.jobDescription.id)">
               <mat-icon color="warn">delete</mat-icon>Delete
             </button>
