@@ -7,13 +7,15 @@ import { USER_TOKEN } from 'src/app/constants/constants';
 })
 export class AuthServiceService {
 
-  constructor(private API : APIService) { }
+  constructor(private API: APIService) { }
 
 
   async verifySession() {
-    let res =  await this.API.callAPIPostAsync(
+    let token = sessionStorage.getItem(USER_TOKEN);
+    console.log(token);
+    let res = await this.API.callAPIPostAsync(
       '/verifySession',
-      sessionStorage.getItem(USER_TOKEN)
+      token ? token : 'kcnjxnjnzkjxcnz'
     );
     return res['valid'];
   }

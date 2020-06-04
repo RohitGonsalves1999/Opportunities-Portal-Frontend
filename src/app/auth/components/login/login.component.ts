@@ -70,6 +70,7 @@ export class LoginComponent implements OnInit {
       sessionStorage.setItem(USER_EMAIL, res[USER_EMAIL]);
       sessionStorage.setItem(USER_TOKEN, res[USER_TOKEN]);
       sessionStorage.setItem(SESSION, 'true');
+      window.location.reload();
       this.router.navigate(['all']);
     });
   }
