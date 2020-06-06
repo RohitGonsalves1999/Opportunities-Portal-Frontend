@@ -37,6 +37,7 @@ export class ViewOpportunityComponent implements OnInit {
 
   toppings = new FormControl();
   toppingList: string[] = ['Profile', 'Location', 'Employment Type', 'Hiring Manager', 'Skills', 'Job Description'];
+  filterFormControl = new FormControl();
   jobsData: JobDescriptionWithSkills[] = [];
   filteredJobsData: JobDescriptionWithSkills[] = [];
   numericCols = ['openings', 'postedOn'];
@@ -74,8 +75,8 @@ export class ViewOpportunityComponent implements OnInit {
     });
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
+  applyFilter(event) {
+    const filterValue = event.target.value;
     this.filterString = filterValue;
     this.dataSource = new MatTableDataSource(this.jobsData.filter(x => this.testJob(x)));
 

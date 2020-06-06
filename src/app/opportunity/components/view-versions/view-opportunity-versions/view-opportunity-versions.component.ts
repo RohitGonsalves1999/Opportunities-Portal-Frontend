@@ -78,7 +78,7 @@ export class ViewOpportunityVersionsComponent implements OnInit {
     });
   }
 
-  applyFilter(event: Event) {
+  applyFilter(event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.filterString = filterValue;
     this.dataSource = new MatTableDataSource(this.jobsData.filter(x => this.testJob(x)));
@@ -131,7 +131,7 @@ export class ViewOpportunityVersionsComponent implements OnInit {
 
 
   async deleteJob(id) {
-    this.API.callApi(`/deleteJobDescription/${id}`).subscribe(res => {
+    this.API.callApi(`/delete/${id}`).subscribe(res => {
       this.flipped = undefined;
       this.openSnackBar();
       this.ngOnInit();
