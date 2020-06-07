@@ -148,4 +148,18 @@ describe('ViewOpportunityComponent', () => {
 
     
   });
+
+  it('should navigate to edit', () => {
+    component.navigateToEdit(5);
+    expect(component.dataSource.data.length).toBeGreaterThan(0);
+
+    
+  });
+
+  it('should navigate to versions', () => {
+    component.navigateToVersions(31);
+    expect(component.dataSource.data.length).toBeGreaterThan(0);
+
+    
+  });
 });

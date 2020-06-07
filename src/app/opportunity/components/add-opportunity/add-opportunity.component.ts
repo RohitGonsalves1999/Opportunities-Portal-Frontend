@@ -73,7 +73,7 @@ export class AddOpportunityComponent implements OnInit {
 
 
 
-  add(event: MatChipInputEvent): void {
+  add(event): void {
     const input = event.input;
     const value = event.value;
 
@@ -105,7 +105,7 @@ export class AddOpportunityComponent implements OnInit {
 
   }
 
-  selected(event: MatAutocompleteSelectedEvent): void {
+  selected(event): void {
     this.fruits.push(event.option.viewValue);
     this.fruitInput.nativeElement.value = '';
     this.fruitCtrl.setValue(null);
@@ -115,7 +115,7 @@ export class AddOpportunityComponent implements OnInit {
     this.jobDescriptionForm.controls['skills'].setValue(this.selectedSkills.map(x => x));
   }
 
-  private _filter(value: string): string[] {
+   _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
 
     return this.skillSet.map(x => x.name).filter(fruit => fruit.toLowerCase().indexOf(filterValue) === 0);

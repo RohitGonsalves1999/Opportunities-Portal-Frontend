@@ -140,5 +140,18 @@ describe('ViewOpportunityVersionsComponent', () => {
   it('should Resolve', () => {
     component.resolveJob(10);
     expect(component.dataSource.data.length).toBeGreaterThan(0);
-  }); 
+  });
+  it('should Open Dialog', () => {
+    component.openDialog(component.dataSource.data[0]);
+    expect(component.dataSource.data.length).toBeGreaterThan(0);
+
+    
+  });
+
+  it('should navigate to edit', () => {
+    component.navigateToEdit(5);
+    expect(component.dataSource.data.length).toBeGreaterThan(0);
+
+    
+  });
 });
